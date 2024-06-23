@@ -1,0 +1,11 @@
+require 'dotenv'
+Dotenv.load('/Users/thuantruong/Dev/pj-133/AwesomeProject/.env')
+
+app_identifier("com.flydino.AwesomeProject") # The bundle identifier of your app
+apple_id("thuan20192000@icloud.com") # Your Apple Developer Portal username
+
+itc_team_id("122700880") # App Store Connect Team ID
+team_id("DH8QQZZMNV") # Developer Portal Team ID
+
+# For more information about the Appfile, see:
+#     https://docs.fastlane.tools/advanced/#appfile
