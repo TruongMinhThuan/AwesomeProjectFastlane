@@ -10,16 +10,7 @@ pipeline {
         GIT_REPO_URL = "https://github.com/TruongMinhThuan/AwesomeProjectFastlane.git"
         GIT_BRANCH = "main"
     }
-    stage("Install Gems Locally") {
-        steps {
-            dir("ios") {
-                sh """
-                bundle config set --local path 'vendor/bundle'
-                bundle install
-                """ 
-            }
-        }
-    }
+
 
     stages {
         stage('Checkout') {
@@ -28,6 +19,17 @@ pipeline {
             }
         }
 
+        stage("Install Gems Locally") {
+            steps {
+                dir("ios") {
+                    sh """
+                    bundle config set --local path 'vendor/bundle'
+                    bundle install
+                    """ 
+                }
+            }
+        }
+        
         stage('Build and Upload to TestFlight') {
             steps {
                 sh 'npm install'
