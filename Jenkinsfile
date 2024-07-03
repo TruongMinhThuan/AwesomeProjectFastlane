@@ -20,7 +20,7 @@ pipeline {
 
         stage('Build and Upload to TestFlight') {
             steps {
-                sh 'yarn'
+                sh 'npm install'
                 dir('ios') {
                     sh 'bundle exec pod install'
                     sh 'bundle exec fastlane test'
