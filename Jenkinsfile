@@ -19,6 +19,18 @@ pipeline {
             }
         }
 
+        stage('Setup') {
+            steps {
+                sh 'gem install bundler -v 2.5.11'
+            }
+        }
+        
+        stage('Install Dependencies') {
+            steps {
+                sh 'bundle _2.5.11_ install'
+            }
+        }
+
         stage("Install Gems Locally") {
             steps {
                 dir("ios") {
@@ -29,7 +41,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Build and Upload to TestFlight') {
             steps {
                 sh 'npm install'
