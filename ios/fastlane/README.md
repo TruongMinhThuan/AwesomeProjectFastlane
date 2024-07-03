@@ -21,14 +21,6 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 [bundle exec] fastlane ios beta
 ```
 
-Push a new beta build to TestFlight
-
-### ios test
-
-```sh
-[bundle exec] fastlane ios test
-```
-
 Build App for testing
 
 ----

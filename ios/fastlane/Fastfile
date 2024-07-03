@@ -16,75 +16,90 @@
 default_platform(:ios)
 
 
-platform :ios do
-  desc "Push a new beta build to TestFlight"
-  lane :beta do
+# platform :ios do
+#   desc "Push a new beta build to TestFlight"
+#   lane :beta do
 
-    BUILD_VERSION = ENV["IOS_BUILD_VERSION"]
-    BUILD_NUMBER = ENV["IOS_BUILD_NUMBER"]
-    SCHEMA = ENV["IOS_SCHEMA"]
-    XCODE_PROJECT = ENV["IOS_XCODE_PROJECT"]
-    AUTH_KEY_ID = ENV["IOS_AUTH_KEY_ID"]
-    AUTH_ISSUER_ID = ENV["IOS_AUTH_ISSUER_ID"]
-    AUTH_KEY_FILE_PATH = ENV["IOS_AUTH_KEY_FILE_PATH"]
-    TEAMS_WEBHOOK_URL = ENV["TEAMS_WEBHOOK_URL"]
-    COMMIT_HASH = `git rev-parse --short HEAD`.strip
-    BRANCH_NAME = `git rev-parse --abbrev-ref HEAD`.strip
-    GITHUB_URL = `git config --get remote.origin.url`.strip
-    GITHUB_BRANCH_URL = "#{GITHUB_URL}/tree/#{BRANCH_NAME}"
-    COMMIT_MESSAGE = `git log -1 --pretty=%B`.strip
-    COMMIT_AUTHOR = `git log -1 --pretty=%an`.strip
+#     BUILD_VERSION = ENV["IOS_BUILD_VERSION"]
+#     BUILD_NUMBER = ENV["IOS_BUILD_NUMBER"]
+#     SCHEMA = ENV["IOS_SCHEMA"]
+#     XCODE_PROJECT = ENV["IOS_XCODE_PROJECT"]
+#     AUTH_KEY_ID = ENV["IOS_AUTH_KEY_ID"]
+#     AUTH_ISSUER_ID = ENV["IOS_AUTH_ISSUER_ID"]
+#     AUTH_KEY_FILE_PATH = ENV["IOS_AUTH_KEY_FILE_PATH"]
+#     TEAMS_WEBHOOK_URL = ENV["TEAMS_WEBHOOK_URL"]
+#     COMMIT_HASH = `git rev-parse --short HEAD`.strip
+#     BRANCH_NAME = `git rev-parse --abbrev-ref HEAD`.strip
+#     GITHUB_URL = `git config --get remote.origin.url`.strip
+#     GITHUB_BRANCH_URL = "#{GITHUB_URL}/tree/#{BRANCH_NAME}"
+#     COMMIT_MESSAGE = `git log -1 --pretty=%B`.strip
+#     COMMIT_AUTHOR = `git log -1 --pretty=%an`.strip
 
 
 
-    if BUILD_NUMBER.nil? || BUILD_NUMBER.empty?
-      # UI.user_error!("You must provide a build number using the BUILD_NUMBER environment variable")
-      increment_build_number( xcodeproj: XCODE_PROJECT, build_number: BUILD_NUMBER)
-    else
-      increment_build_number( xcodeproj: XCODE_PROJECT)
-    end
+#     if BUILD_NUMBER.nil? || BUILD_NUMBER.empty?
+#       # UI.user_error!("You must provide a build number using the BUILD_NUMBER environment variable")
+#       increment_build_number( xcodeproj: XCODE_PROJECT, build_number: BUILD_NUMBER)
+#     else
+#       increment_build_number( xcodeproj: XCODE_PROJECT)
+#     end
 
-    api_key = app_store_connect_api_key(
-      key_id: AUTH_KEY_ID,          # Replace with your API key ID
-      issuer_id: AUTH_ISSUER_ID,    # Replace with your issuer ID
-      key_filepath: AUTH_KEY_FILE_PATH # Replace with the path to your API key file
-    )
+#     api_key = app_store_connect_api_key(
+#       key_id: AUTH_KEY_ID,          # Replace with your API key ID
+#       issuer_id: AUTH_ISSUER_ID,    # Replace with your issuer ID
+#       key_filepath: AUTH_KEY_FILE_PATH # Replace with the path to your API key file
+#     )
 
-    build_app(workspace: "AwesomeProject.xcworkspace", scheme: SCHEMA)
+#     build_app(workspace: "AwesomeProject.xcworkspace", scheme: SCHEMA)
 
-    # upload_to_testflight(api_key: api_key)
+#     # upload_to_testflight(api_key: api_key)
 
-    # teams(
-    #   teams_url: TEAMS_WEBHOOK_URL,
-    #   title: "App Build Success 🚀",
-    #   message: "Successfully uploaded <b>#{SCHEMA}</b> to TestFlight! 🚀 ",
-    #   facts:[
-    #     {
-    #       "name"=>"Author",
-    #       "value"=> COMMIT_AUTHOR
-    #     },
-    #     {
-    #       "name"=>"Branch",
-    #       "value"=> "<a href='#{GITHUB_BRANCH_URL}'>#{BRANCH_NAME}</a>"
-    #     },
-    #     {
-    #       "name"=> "Commit",
-    #       "value"=> "message: #{COMMIT_MESSAGE} - hash: #{COMMIT_HASH}"
-    #     },
-    #     {
-    #       "name"=> "Version",
-    #       "value"=> "(<b>#{BUILD_VERSION}</b> - <b>#{BUILD_NUMBER}</b>)"
-    #     }
+#     # teams(
+#     #   teams_url: TEAMS_WEBHOOK_URL,
+#     #   title: "App Build Success 🚀",
+#     #   message: "Successfully uploaded <b>#{SCHEMA}</b> to TestFlight! 🚀 ",
+#     #   facts:[
+#     #     {
+#     #       "name"=>"Author",
+#     #       "value"=> COMMIT_AUTHOR
+#     #     },
+#     #     {
+#     #       "name"=>"Branch",
+#     #       "value"=> "<a href='#{GITHUB_BRANCH_URL}'>#{BRANCH_NAME}</a>"
+#     #     },
+#     #     {
+#     #       "name"=> "Commit",
+#     #       "value"=> "message: #{COMMIT_MESSAGE} - hash: #{COMMIT_HASH}"
+#     #     },
+#     #     {
+#     #       "name"=> "Version",
+#     #       "value"=> "(<b>#{BUILD_VERSION}</b> - <b>#{BUILD_NUMBER}</b>)"
+#     #     }
         
-    #   ],
-    # )
-  end
-end
+#     #   ],
+#     # )
+#   end
+# end
 
+
+#     BUILD_VERSION = ENV["IOS_BUILD_VERSION"]
+#     BUILD_NUMBER = ENV["IOS_BUILD_NUMBER"]
+#     SCHEMA = ENV["IOS_SCHEMA"]
+#     XCODE_PROJECT = ENV["IOS_XCODE_PROJECT"]
+#     AUTH_KEY_ID = ENV["IOS_AUTH_KEY_ID"]
+#     AUTH_ISSUER_ID = ENV["IOS_AUTH_ISSUER_ID"]
+#     AUTH_KEY_FILE_PATH = ENV["IOS_AUTH_KEY_FILE_PATH"]
+#     TEAMS_WEBHOOK_URL = ENV["TEAMS_WEBHOOK_URL"]
+#     COMMIT_HASH = `git rev-parse --short HEAD`.strip
+#     BRANCH_NAME = `git rev-parse --abbrev-ref HEAD`.strip
+#     GITHUB_URL = `git config --get remote.origin.url`.strip
+#     GITHUB_BRANCH_URL = "#{GITHUB_URL}/tree/#{BRANCH_NAME}"
+#     COMMIT_MESSAGE = `git log -1 --pretty=%B`.strip
+#     COMMIT_AUTHOR = `git log -1 --pretty=%an`.strip
 # You can define as many lanes as you want
 platform :ios do
   desc "Build App for testing"
-  lane :test do
+  lane :beta do
     # run_tests(
     #   workspace: "AwesomeProject.xcworkspace",
     #   scheme: "AwesomeProject",
@@ -96,7 +111,6 @@ platform :ios do
       scheme: "AwesomeProject",
       configuration: "Debug",
       export_method: "development",
-      destination: "id=753EE107-5E89-4712-B1D2-445FBD5C973E",
     )
 
   end
