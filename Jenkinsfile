@@ -22,16 +22,19 @@ pipeline {
      
         stage('Setup RVM and Ruby') {
             steps {
-                
+
                 sh 'npm install'
 
-                // Load RVM and use the correct Ruby version
-                sh '''
-                   source ~/.rvm/scripts/rvm
-                   rvm use 3.3.3 --default
-                   gem install bundler -v 3.3.3 --user-install
-                   export PATH=$HOME/.gem/ruby/3.3.3/bin:$PATH
-                '''
+                  // Load RVM
+                sh 'source $HOME/.rvm/scripts/rvm'
+                
+                // Use a specific Ruby version, for example, Ruby 2.7.1
+                sh 'rvm use 2.7.1'
+                
+                // Install Node.js dependencies
+                sh 'npm install'
+
+                sh 'gem install cocoapods'
             }
         }
 
