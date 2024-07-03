@@ -16,7 +16,11 @@ pipeline {
 
         stage('Build and Upload to TestFlight') {
             steps {
-                sh 'fastlane ${FASTLANE_LANE}'
+                sh 'npm install'
+                dir('ios') {
+                    sh 'bundle exec pod install'
+                    sh 'bundle exec fastlane test'
+                }
             }
         }
     }
