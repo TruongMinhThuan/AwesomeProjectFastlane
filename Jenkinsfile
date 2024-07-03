@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    tools {
+        nodejs "Node22.4" // The name you gave in the NodeJS configuration
+    }
+
     environment {
         FASTLANE_LANE = "test"
         GIT_REPO_URL = "https://github.com/TruongMinhThuan/AwesomeProjectFastlane.git"
@@ -16,7 +20,7 @@ pipeline {
 
         stage('Build and Upload to TestFlight') {
             steps {
-                sh 'npm install'
+                sh 'yarn'
                 dir('ios') {
                     sh 'bundle exec pod install'
                     sh 'bundle exec fastlane test'
