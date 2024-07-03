@@ -22,8 +22,8 @@ pipeline {
             steps {
                 sh 'npm install'
                 dir('ios') {
-                    sh 'bundle exec pod install'
-                    sh 'bundle exec fastlane test'
+                    sh 'pod install'
+                    sh 'fastlane test'
                 }
             }
         }
