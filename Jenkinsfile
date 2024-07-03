@@ -24,9 +24,9 @@ pipeline {
             steps {
                 // Install dependencies
                 sh 'npm install'
-                sh 'gem install bundler--user-install'
-                sh 'bundle config set --local path "vendor/bundle"'
-                sh 'bundle install'
+                // sh 'gem install bundler --user-install'
+                // sh 'bundle config set --local path "vendor/bundle"'
+                // sh 'bundle install'
             }
         }
 
