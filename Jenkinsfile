@@ -22,7 +22,6 @@ pipeline {
             steps {
                 sh 'npm install'
                 dir('ios') {
-                    sh '/opt/homebrew/bin/pod install'
                     sh 'fastlane test'
                 }
             }
