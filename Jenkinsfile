@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        FASTLANE_LANE = "beta"
+        FASTLANE_LANE = "test"
         GIT_REPO_URL = "https://github.com/TruongMinhThuan/AwesomeProjectFastlane.git"
         GIT_BRANCH = "main"
     }
@@ -14,15 +14,11 @@ pipeline {
             }
         }
 
-        stage('Install Dependencies') {
-            steps {
-                sh 'bundle install'
-            }
-        }
-
         stage('Build and Upload to TestFlight') {
-            steps {
-                sh 'bundle exec fastlane ${FASTLANE_LANE}'
+            dir('ios') {
+                steps {
+                    sh 'fastlane ${FASTLANE_LANE}'
+                }
             }
         }
     }
