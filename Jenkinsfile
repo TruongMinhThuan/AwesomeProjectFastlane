@@ -15,10 +15,8 @@ pipeline {
         }
 
         stage('Build and Upload to TestFlight') {
-            dir('ios') {
-                steps {
-                    sh 'fastlane ${FASTLANE_LANE}'
-                }
+            steps {
+                sh 'fastlane ${FASTLANE_LANE}'
             }
         }
     }
