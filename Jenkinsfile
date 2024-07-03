@@ -20,13 +20,27 @@ pipeline {
         }
 
      
-        stage('Setup Environment') {
+        stage('Setup RVM and Ruby') {
             steps {
-                // Install dependencies
+                
                 sh 'npm install'
-                sh 'gem install cocoapods --user-install'
-                // sh 'bundle config set --local path "vendor/bundle"'
-                // sh 'bundle install'
+
+                // Load RVM and use the correct Ruby version
+                sh '''
+                   source ~/.rvm/scripts/rvm
+                   rvm use 3.3.3 --default
+                   gem install bundler -v 3.3.3 --user-install
+                   export PATH=$HOME/.gem/ruby/3.3.3/bin:$PATH
+                '''
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                // Install Node.js dependencies
+                sh 'npm install'
+                // Install Ruby gems using Bundler
+                sh 'bundle install'
             }
         }
 
@@ -38,20 +52,8 @@ pipeline {
             }
         }
 
-        stage("Install Gems Locally") {
-            steps {
-                dir("ios") {
-                    sh """
-                    bundle config set --local path 'vendor/bundle'
-                    bundle install
-                    """ 
-                }
-            }
-        }
-
         stage('Build and Upload to TestFlight') {
             steps {
-                sh 'npm install'
                 dir('ios') {
                     sh 'fastlane test'
                 }
