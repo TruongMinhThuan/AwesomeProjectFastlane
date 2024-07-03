@@ -19,15 +19,22 @@ pipeline {
             }
         }
 
-        stage('Setup') {
+     
+        stage('Setup Environment') {
             steps {
-                sh 'gem install bundler -v 2.5.11 --user-install'
+                // Install dependencies
+                sh 'npm install'
+                sh 'gem install bundler:2.5.11 --user-install'
+                sh 'bundle config set --local path "vendor/bundle"'
+                sh 'bundle install'
             }
         }
-        
-        stage('Install Dependencies') {
+
+        stage('Install Pods') {
             steps {
-                sh 'bundle _2.5.11_ install'
+                dir('ios') {
+                    sh 'pod install'
+                }
             }
         }
 
