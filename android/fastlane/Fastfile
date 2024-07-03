@@ -59,3 +59,25 @@ platform :android do
 
   end
 end
+
+
+
+# You can define as many lanes as you want
+platform :ios do
+  desc "Build App for testing"
+  lane :test do
+    # run_tests(
+    #   workspace: "AwesomeProject.xcworkspace",
+    #   scheme: "AwesomeProject",
+
+    # )
+
+    build_app(
+      workspace: "AwesomeProject.xcworkspace",
+      scheme: "AwesomeProject",
+      configuration: "Debug",
+      export_method: "development",
+      destination: "id=753EE107-5E89-4712-B1D2-445FBD5C973E",
+    )
+  end
+end

@@ -15,6 +15,7 @@
 
 default_platform(:ios)
 
+
 platform :ios do
   desc "Push a new beta build to TestFlight"
   lane :beta do
@@ -51,31 +52,53 @@ platform :ios do
 
     build_app(workspace: "AwesomeProject.xcworkspace", scheme: SCHEMA)
 
-    upload_to_testflight(api_key: api_key)
+    # upload_to_testflight(api_key: api_key)
 
-    teams(
-      teams_url: TEAMS_WEBHOOK_URL,
-      title: "App Build Success 🚀",
-      message: "Successfully uploaded <b>#{SCHEMA}</b> to TestFlight! 🚀 ",
-      facts:[
-        {
-          "name"=>"Author",
-          "value"=> COMMIT_AUTHOR
-        },
-        {
-          "name"=>"Branch",
-          "value"=> "<a href='#{GITHUB_BRANCH_URL}'>#{BRANCH_NAME}</a>"
-        },
-        {
-          "name"=> "Commit",
-          "value"=> "message: #{COMMIT_MESSAGE} - hash: #{COMMIT_HASH}"
-        },
-        {
-          "name"=> "Version",
-          "value"=> "(<b>#{BUILD_VERSION}</b> - <b>#{BUILD_NUMBER}</b>)"
-        }
+    # teams(
+    #   teams_url: TEAMS_WEBHOOK_URL,
+    #   title: "App Build Success 🚀",
+    #   message: "Successfully uploaded <b>#{SCHEMA}</b> to TestFlight! 🚀 ",
+    #   facts:[
+    #     {
+    #       "name"=>"Author",
+    #       "value"=> COMMIT_AUTHOR
+    #     },
+    #     {
+    #       "name"=>"Branch",
+    #       "value"=> "<a href='#{GITHUB_BRANCH_URL}'>#{BRANCH_NAME}</a>"
+    #     },
+    #     {
+    #       "name"=> "Commit",
+    #       "value"=> "message: #{COMMIT_MESSAGE} - hash: #{COMMIT_HASH}"
+    #     },
+    #     {
+    #       "name"=> "Version",
+    #       "value"=> "(<b>#{BUILD_VERSION}</b> - <b>#{BUILD_NUMBER}</b>)"
+    #     }
         
-      ],
-    )
+    #   ],
+    # )
   end
 end
+
+# You can define as many lanes as you want
+platform :ios do
+  desc "Build App for testing"
+  lane :test do
+    # run_tests(
+    #   workspace: "AwesomeProject.xcworkspace",
+    #   scheme: "AwesomeProject",
+
+    # )
+
+    build_app(
+      workspace: "AwesomeProject.xcworkspace",
+      scheme: "AwesomeProject",
+      configuration: "Debug",
+      export_method: "development",
+      destination: "id=753EE107-5E89-4712-B1D2-445FBD5C973E",
+    )
+
+  end
+end
+
