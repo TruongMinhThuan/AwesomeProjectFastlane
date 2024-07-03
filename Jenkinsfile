@@ -21,7 +21,7 @@ pipeline {
 
         stage('Setup') {
             steps {
-                sh 'gem install bundler -v 2.5.11'
+                sh 'gem install bundler -v 2.5.11 --user-install'
             }
         }
         
